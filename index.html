@@ -7,6 +7,34 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> 
 </head>
 <body>
-    
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+        </header>
+        <h1 v-text="subject.title"></h1>
+        <p v-text="subject.location"></p>
+        <!-- <p>Price:{{subject.price}}</p>
+        <p>Number of spaces:{{subject.space}}</p>
+        <button v-on:click="">Add to cart</button> -->
+    </div>
 </body>
+<script>
+    var store = new Vue({
+        el:'#app',
+        data:{
+            sitename:'After School Club',
+            subject:{
+                title:'Math',
+                location:'London',
+                price:100,
+                space:5
+            }
+        },
+        methods:{
+            addToCart(){
+
+            }
+        }
+    });
+</script>
 </html>
