@@ -15,7 +15,7 @@
         <p v-text="subject.location"></p>
         <p>Price:{{subject.price}}</p>
         <p>Number of spaces:{{subject.space}}</p>
-        <button v-on:click="">Add to cart</button>
+        <button v-on:click="addToCart">Add to cart</button>
     </div>
 </body>
 <script>
@@ -34,6 +34,11 @@
             addToCart(){
 
             }
+        },
+        computed:{
+            canAddToCart:function(){
+               return this.subject.space > this.cartItemCount
+           }
         }
     });
 </script>
