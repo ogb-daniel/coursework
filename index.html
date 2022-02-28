@@ -14,8 +14,9 @@
         <h1 v-text="subject.title"></h1>
         <p v-text="subject.location"></p>
         <p>Price:{{subject.price}}</p>
-        <p>Number of spaces:{{subject.space}}</p>
-        <button v-on:click="addToCart">Add to cart</button>
+        <p >Number of spaces:{{subject.space}}</p>
+        <button v-on:click="addToCart" v-if="canAddToCart">Add to cart</button>
+        <button v-else disabled>Add to cart</button>
     </div>
 </body>
 <script>
@@ -24,20 +25,25 @@
         data:{
             sitename:'After School Club',
             subject:{
+                id:1,
                 title:'Math',
                 location:'London',
                 price:100,
                 space:5
-            }
+            },
+
         },
         methods:{
             addToCart(){
-
+               
+                if(this.subject.space > 0){
+                   this.subject.space --;
+               }
             }
         },
         computed:{
             canAddToCart:function(){
-               return this.subject.space > this.cartItemCount
+               return this.subject.space > 0 ? true : false;
            }
         }
     });
