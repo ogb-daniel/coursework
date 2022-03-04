@@ -9,19 +9,23 @@
 </head>
 <body>
     <div id="app" >
-        <h1 class="title-font text-2xl font-bold text-gray-900 pl-8 pt-8" v-text="sitename"></h1>
 
+      
         <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
+                <div class="lg:w-1/2 w-full mb-20">
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"  v-text="sitename"></h1>
+                    <div class="h-1 w-20 bg-black rounded"></div>
+                  </div>
               <div class="flex flex-wrap -m-4">
                 <div class="p-4 md:w-1/3">
                   <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                    <img class="lg:h-48 md:h-36 w-full object-contain " v-bind:src="subject.image" alt="blog">
+                    <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="subject.image" alt="blog">
                     <div class="p-6">
                     
                       <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="subject.title"></h1>
                       <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="subject.location"></h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:${{subject.price}}</h1>
+                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{subject.price | formatPrice}}</h1>
                       <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{subject.space}}</h1>
                       
                       <button v-on:click="addToCart" v-if="canAddToCart" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
@@ -47,11 +51,12 @@
                 id:1,
                 title:'Math',
                 location:'London',
-                price:100,
+                price:100000,
                 image:'images/math.jpg',
                 space:5,
+                availableSpace:5
             },
-
+            cart:[]
         },
         filters:{
             formatPrice:function(price){
@@ -64,7 +69,7 @@
                         priceArray.splice((index+3),0,",");
                         index += 4;
                     }
-                    return priceArray.reverse().join("");
+                    return "$"+ priceArray.reverse().join("");
                 }else{
                     return "$" + (price/100).toFixed(2);
                 }
@@ -73,16 +78,20 @@
 
         methods:{
             addToCart(){
-               
-                if(this.subject.space > 0){
+               this.cart.push(this.subject.id)
+                
                    this.subject.space --;
-               }
+               
             }
         },
         computed:{
             canAddToCart:function(){
-               return this.subject.space > 0 ? true : false;
-           }
+                
+               return this.subject.availableSpace > this.cartItemCount
+           },
+           cartItemCount(){
+               return this.cart.length || ''
+           }    
         }
     });
 </script>
