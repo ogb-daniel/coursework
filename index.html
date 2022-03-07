@@ -6,6 +6,7 @@
     <title>CourseWork</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"> </script>
 </head>
 <body>
     <div id="app" >
@@ -13,22 +14,82 @@
       
         <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
-                <div class="lg:w-1/2 w-full mb-20">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"  v-text="sitename"></h1>
-                    <div class="h-1 w-20 bg-black rounded"></div>
-                  </div>
-              <div class="flex flex-wrap -m-4">
-                <div class="p-4 md:w-1/3">
+                <div class="flex ">
+                    <div class="lg:w-1/2 w-full mb-20 ">
+                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"  v-text="sitename"></h1>
+                        <div class="h-1 w-20 bg-black rounded"></div>
+                      </div>
+                      <div class="flex">
+                          <div>
+                            <label id="listbox-label" class="block text-sm font-medium text-gray-700"> Sort by </label>
+                            <div class="mt-1 relative">
+                              <button v-on:click="showSort" type="button" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                                         <span class="ml-3 block px-5" >{{option}}</span>
+                       
+                                <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                              
+                                  <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                  </svg>
+                                </span>
+                              </button>
+                          
+          
+                              <ul v-show="canShowSort"  class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                             
+                                <li v-on:click="selectSort(state)" v-for="(state,key)  in options" class="text-gray-900 cursor-default  relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+                                  <span class="font-normal ml-1 block px-5" v-bind:value="state">{{state}}</span>
+                              
+                                  
+                                </li>
+         
+                          
+                              </ul>
+                            </div>
+                          </div>
+                       <div>
+                           
+                        <div class="mt-6 ml-8 relative">
+                            <button v-on:click="showDirection" type="button" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                                       <span class="ml-3 block px-5" >{{direction}}</span>
+                     
+                              <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                  <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                              </span>
+                            </button>
+                        
+        
+                            <ul v-show="canShowDirectionSort"  class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                           
+                              <li v-on:click="selectDirection(direction)" v-for="(direction,key)  in directions" class="text-gray-900 cursor-default  relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+                                <span class="font-normal ml-1 block px-5" v-bind:value="direction">{{direction}}</span>
+                            
+                                
+                              </li>
+       
+                        
+                            </ul>
+                          </div>
+                       </div>
+                        
+                      </div>
+                </div>
+               
+              <div class="flex flex-wrap -m-4" >
+                <div class="p-4 md:w-1/3" v-for="lesson in lessons">
                   <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                    <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="subject.image" alt="blog">
+                    <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
                     <div class="p-6">
                     
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="subject.title"></h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="subject.location"></h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{subject.price | formatPrice}}</h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{subject.space}}</h1>
+                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
+                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
+                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
                       
-                      <button v-on:click="addToCart" v-if="canAddToCart" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
+                      <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
                 <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
             
                      
@@ -47,6 +108,7 @@
         el:'#app',
         data:{
             sitename:'After School Club',
+           lessons:[],
             subject:{
                 id:1,
                 title:'Math',
@@ -56,7 +118,26 @@
                 space:5,
                 availableSpace:5
             },
+            sort:false,
+            directionSort:false,
+            options:{
+                Su:'Subject',
+                Lo:'Location',
+                Pr:'Price',
+                Av:'Availability'
+            },
+            directions:{
+                ASC:'Ascending',
+                DESC:'Descending'
+            },
+            direction:'By',
+            option:'Sort',
             cart:[]
+        },
+        created: async function (){
+            const lessons = await axios.get('./lessons.json');
+            this.lessons = lessons.data.lessons;
+
         },
         filters:{
             formatPrice:function(price){
@@ -77,21 +158,87 @@
              },
 
         methods:{
-            addToCart(){
-               this.cart.push(this.subject.id)
+             compare_function(obj1, obj2){
+             
+                    if(this.option === 'Subject'){
+              
+                        if (obj1.title == obj2.title) return 0;
+      if (obj1.title < obj2.title){
+        return -1 
+      } else {return 1};
+                    }else if(this.option === 'Location'){
+                                      
+      if (obj1.location == obj2.location) return 0;
+      if (obj1.location < obj2.location){
+        return -1 
+      } else {return 1};
+                    }else if(this.option === 'Price'){
+                                      
+      if (obj1.price == obj2.price) return 0;
+      if (obj1.price < obj2.price){
+        return -1 
+      } else {return 1};
+                    }else if(this.option === 'Availability'){
+                                      
+      if (obj1.availableSpace == obj2.availableSpace) return 0;
+      if (obj1.availableSpace < obj2.availableSpace){
+        return -1 
+      } else {return 1};
+                    }
+
+
+  },
+            selectSort(state){
+                this.option = state;
+                this.sort = false;
+            },
+            showSort(){
+               this.sort = !this.sort; 
+            },
+            selectDirection(direction){
+                this.direction = direction;
+                this.directionSort = false;
+            },
+            showDirection(){
+               this.directionSort = !this.directionSort; 
+            },
+            addToCart(product){
+               this.cart.push(product.id)
                 
-                   this.subject.space --;
+                   product.space --;
                
-            }
+            },
+            canAddToCart:function(product){
+                return product.availableSpace > this.cartItemCount(product.id)
+            },
+            cartItemCount(productId){
+                let count = 0;
+
+                for (let index = 0; index < this.cart.length; index++) {
+                    if(productId === this.cart[index]){
+                        count ++;
+                    }
+                    
+                }
+                console.log(this.cart);
+                return count;
+            }    
         },
         computed:{
-            canAddToCart:function(){
-                
-               return this.subject.availableSpace > this.cartItemCount
-           },
-           cartItemCount(){
-               return this.cart.length || ''
-           }    
+            canShowSort(){
+                return this.sort
+            },
+            canShowDirectionSort(){
+                return this.directionSort
+            },
+           checkSort(){
+               const object = this.options;
+               for (const key in object) {
+                  if(this.option === object[key]){        
+  this.lessons.sort(this.compare_function) ;
+                  }
+              }
+           }
         }
     });
 </script>
