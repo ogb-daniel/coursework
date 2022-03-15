@@ -132,15 +132,6 @@
         data:{
             sitename:'After School Club',
            lessons:[],
-            subject:{
-                id:1,
-                title:'Math',
-                location:'London',
-                price:100000,
-                image:'images/math.jpg',
-                space:5,
-                availableSpace:5
-            },
             sort:false,
             directionSort:false,
             options:{
@@ -268,26 +259,7 @@ if (obj1.availableSpace < obj2.availableSpace){
                    product.space --;
                
             },
-            // handleSearch(){
-            //   const searchOption = this.search;
-            //   if(this.search === ''){
-            //     this.createLesson();
-            //   }
-            //   const result = this.lessons.filter((lesson)=>{
-            //    return lesson.title == searchOption;
-            //   })
             
-              
-            //   if(result.length > 0){
-            //     console.log(result);
-            //     this.lessons = result;
-            //   }
-           
-              
-             
-            
-             
-            // },
             canAddToCart:function(product){
                 return product.availableSpace > this.cartItemCount(product.id)
             },
