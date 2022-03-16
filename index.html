@@ -6,6 +6,7 @@
     <title>CourseWork</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"> </script>
 </head>
 <body>
@@ -78,8 +79,14 @@
                       </div>
                       <div class="mt-6">
               
-                        <input type="text" placeholder="Search" v-model="search" v-on:input="handleSearch" class="w-full bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <input type="text" placeholder="Search" v-model="search" class="w-full bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                      
+                      </div>
+                      <div class="">
+                        <button v-on:click="showCart" v-if="canShowCart" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-shopping-cart">Cart</button>
+                        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-shopping-cart" >Cart</button>
+                    
+                            
                       </div>
                 </div>
                 <div class="flex flex-wrap -m-4" v-if="canShowFilteredList" >
@@ -101,25 +108,46 @@
                     </div>
                   </div>
       </div>
-              <div class="flex flex-wrap -m-4" v-else >
-                <div class="p-4 md:w-1/3" v-for="lesson in lessons">
-                  <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                    <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
-                    <div class="p-6">
-                    
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
-                      <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
-                      
-                      <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
-                <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
+             
+    <div v-else>
+      <div class="flex flex-wrap -m-4"  v-if="showLessons" >
+        <div class="p-4 md:w-1/3" v-for="lesson in lessons">
+          <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+            <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
+            <div class="p-6">
             
-                     
-                    </div>
-                  </div>
-                </div>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
+              
+              <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus">Add to cart</button>
+        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus" >Add to cart</button>
+    
+             
+            </div>
+          </div>
+        </div>
+</div>
+<div v-else >
+  <div class="flex flex-wrap -m-4">
+    <div class="p-4 md:w-1/3" v-for="lesson in lessonInCart">
+      <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+        <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
+        <div class="p-6">
+        
+          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
+          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
+          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+          <button v-on:click="removeFromCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded ">Remove</button>
+
+        </div>
+      </div>
     </div>
+</div>
+</div>
+    </div>
+   
             </div>
           </section>
 
@@ -148,7 +176,9 @@
             option:'Sort',
             search:'',
             cart:[],
-            componentLoaded:false
+            lessonInCart:[],
+            componentLoaded:false,
+            showLessons:true,
         },
         created: function (){
          this.createLesson();
@@ -255,11 +285,36 @@ if (obj1.availableSpace < obj2.availableSpace){
             },
             addToCart(product){
                this.cart.push(product.id)
-                
+                this.lessonInCart.push(product)
                    product.space --;
                
             },
-            
+            removeFromCart(lesson){
+              let lessonId = lesson.id;
+              
+              for (let index = 0; index < this.cart.length; index++) {
+                    if(lessonId === this.cart[index]){
+                      // this.lessonInCart = this.lessonInCart.filter(item => item.id !== index)
+                      this.lessonInCart.splice(index  ,1);
+                      this.cart.splice(index,1)
+                      // this.cart = this.cart.filter(item => item !== this.cart[index])
+
+                      lesson.space ++;
+
+                    
+
+                      if(this.lessonInCart.length == 0){
+                          this.showLessons = true;
+                      }
+                      return;
+                    }
+                    
+                }
+        
+             
+                   
+               
+            },
             canAddToCart:function(product){
                 return product.availableSpace > this.cartItemCount(product.id)
             },
@@ -274,12 +329,17 @@ if (obj1.availableSpace < obj2.availableSpace){
                 }
                 
                 return count;
-            }    
+            } ,
+            showCart(){
+              this.showLessons = !this.showLessons;
+              
+            }   
         },
         computed:{
             canShowSort(){
                 return this.sort
             },
+          
             canShowDirectionSort(){
                 return this.directionSort
             },
@@ -312,6 +372,14 @@ if (obj1.availableSpace < obj2.availableSpace){
                   }   
                   }
               }
+           },
+          //  canShowLessons(){
+          //   if(this.lessonInCart.length == 0){
+          //                 this.showLessons = true;
+          //             }
+          //  },
+           canShowCart(){
+           return   this.cart.length > 0 ? true : false
            }
         }
     });
