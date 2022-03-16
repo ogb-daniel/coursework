@@ -89,6 +89,9 @@
                             
                       </div>
                 </div>
+                <div>
+                  
+                </div>
                 <div class="flex flex-wrap -m-4" v-if="canShowFilteredList" >
                  
                   <div class="p-4 md:w-1/3"  v-for="lesson in filteredList">
@@ -136,10 +139,12 @@
 
               
       <input type="text" placeholder="Name" v-model="name" class="w-1/2 bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-      <span class="w-3/4">{{nameCheck}}</span>
+      <span class="w-3/4" v-if="checkName">{{nameCheck}}</span>
+      <span v-else class="w-3/4 text-red-500" >Enter a name</span>
       <div class="w-1/2"></div>
       <input type="number" placeholder="Phone" v-model="phone" class="w-1/2 bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-     <span class="w-3/4">{{passCheck}}</span>
+     <span class="w-3/4" v-if="checkRegex">{{passCheck}}</span>
+     <span v-else class="w-3/4 text-red-500" >Enter a valid number</span>
       <div class="w-1/2"></div>
       <button v-on:click="checkout" v-if="canCheckout" class=" text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded ">Checkout</button>
       <button v-else disabled  class="  text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded " >Checkout</button>
@@ -294,13 +299,28 @@ if (obj1.availableSpace < obj2.availableSpace){
 },
             selectSort(state){
                 this.option = state;
+                this.checkSort();
                 this.sort = false;
             },
+            checkSort(){
+               const object = this.options;
+               for (const key in object) {
+               
+                  if(this.option === object[key]){
+                    if(this.direction === 'Ascending'){
+                      this.lessons.sort(this.compare_function) ;
+                  } else if(this.direction === 'Descending'){
+                    this.lessons.sort(this.compare_function_desc)
+                  }   
+                  }
+              }
+           },
             showSort(){
                this.sort = !this.sort; 
             },
             selectDirection(direction){
                 this.direction = direction;
+                this.checkSort()
                 this.directionSort = false;
             },
             showDirection(){
@@ -387,19 +407,19 @@ if (obj1.availableSpace < obj2.availableSpace){
             })
           }
         },
-           checkSort(){
-               const object = this.options;
-               for (const key in object) {
+          //  checkSort(){
+          //      const object = this.options;
+          //      for (const key in object) {
                
-                  if(this.option === object[key]){
-                    if(this.direction === 'Ascending'){
-                      this.lessons.sort(this.compare_function) ;
-                  } else if(this.direction === 'Descending'){
-                    this.lessons.sort(this.compare_function_desc)
-                  }   
-                  }
-              }
-           },
+          //         if(this.option === object[key]){
+          //           if(this.direction === 'Ascending'){
+          //             this.lessons.sort(this.compare_function) ;
+          //         } else if(this.direction === 'Descending'){
+          //           this.lessons.sort(this.compare_function_desc)
+          //         }   
+          //         }
+          //     }
+          //  },
           
            canShowCart(){
            return   this.cart.length > 0 ? true : false
@@ -408,11 +428,12 @@ if (obj1.availableSpace < obj2.availableSpace){
             var reg = /^[0-9]{9,12}$/;
             
             if(reg.test(this.phone)){
-              this.passCheck = "";
               this.passCheckValue = true;
+
+              return true;
             }else{
-              this.passCheck = "Provide a valid number"
               this.passCheckValue = false;
+              return false;
             }
             
            },
@@ -420,11 +441,11 @@ if (obj1.availableSpace < obj2.availableSpace){
             var regex = /^[a-zA-Z ]{2,30}$/;
 
             if(regex.test(this.name)){
-              this.nameCheck="";
               this.nameCheckValue = true;
+              return true;
             }else {
-              this.nameCheck = "Enter your name"
               this.nameCheckValue = false;
+             return false
             }
            },
            canCheckout(){
