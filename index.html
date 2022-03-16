@@ -90,6 +90,7 @@
                       </div>
                 </div>
                 <div class="flex flex-wrap -m-4" v-if="canShowFilteredList" >
+                 
                   <div class="p-4 md:w-1/3"  v-for="lesson in filteredList">
                     <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                       <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
@@ -110,6 +111,7 @@
       </div>
              
     <div v-else>
+      
       <div class="flex flex-wrap -m-4"  v-if="showLessons" >
         <div class="p-4 md:w-1/3" v-for="lesson in lessons">
           <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
@@ -130,6 +132,21 @@
         </div>
 </div>
 <div v-else >
+  <div class="flex justify-between mb-2">
+
+              
+      <input type="text" placeholder="Name" v-model="name" class="w-1/2 bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <span class="w-3/4">{{nameCheck}}</span>
+      <div class="w-1/2"></div>
+      <input type="number" placeholder="Phone" v-model="phone" class="w-1/2 bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+     <span class="w-3/4">{{passCheck}}</span>
+      <div class="w-1/2"></div>
+      <button v-on:click="checkout" v-if="canCheckout" class=" text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded ">Checkout</button>
+      <button v-else disabled  class="  text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded " >Checkout</button>
+    
+    
+  </div>
+  
   <div class="flex flex-wrap -m-4">
     <div class="p-4 md:w-1/3" v-for="lesson in lessonInCart">
       <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
@@ -176,9 +193,15 @@
             option:'Sort',
             search:'',
             cart:[],
+            name:'',
+            phone:'',
             lessonInCart:[],
             componentLoaded:false,
             showLessons:true,
+            passCheck:'',
+            nameCheck:'',
+            nameCheckValue:'',
+            passCheckValue:''
         },
         created: function (){
          this.createLesson();
@@ -333,7 +356,11 @@ if (obj1.availableSpace < obj2.availableSpace){
             showCart(){
               this.showLessons = !this.showLessons;
               
-            }   
+            }   ,
+            checkout(){
+             alert('Your order has been submitted.....redirecting you to the home screen!!')
+             this.showLessons = true;
+           }
         },
         computed:{
             canShowSort(){
@@ -373,14 +400,40 @@ if (obj1.availableSpace < obj2.availableSpace){
                   }
               }
            },
-          //  canShowLessons(){
-          //   if(this.lessonInCart.length == 0){
-          //                 this.showLessons = true;
-          //             }
-          //  },
+          
            canShowCart(){
            return   this.cart.length > 0 ? true : false
-           }
+           },
+           checkRegex(){
+            var reg = /^[0-9]{9,12}$/;
+            
+            if(reg.test(this.phone)){
+              this.passCheck = "";
+              this.passCheckValue = true;
+            }else{
+              this.passCheck = "Provide a valid number"
+              this.passCheckValue = false;
+            }
+            
+           },
+           checkName(){
+            var regex = /^[a-zA-Z ]{2,30}$/;
+
+            if(regex.test(this.name)){
+              this.nameCheck="";
+              this.nameCheckValue = true;
+            }else {
+              this.nameCheck = "Enter your name"
+              this.nameCheckValue = false;
+            }
+           },
+           canCheckout(){
+             if(this.nameCheckValue && this.passCheckValue){
+               return true;
+             }
+             return false;
+           },
+          
         }
     });
 </script>
