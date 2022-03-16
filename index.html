@@ -13,18 +13,18 @@
     <div id="app" >
 
       
-        <section class="text-gray-600 body-font">
+        <section class="text-white body-font bg-slate-900">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex justify-between">
                     <div class="mb-20 ">
-                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"  v-text="sitename"></h1>
+                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 "  v-text="sitename"></h1>
                         <div class="h-1 w-20 bg-black rounded"></div>
                       </div>
                       <div class="flex">
                           <div>
-                            <label id="listbox-label" class="block text-sm font-medium text-gray-700"> Sort by </label>
+                            <label id="listbox-label" class="block text-sm font-medium "> Sort by </label>
                             <div class="mt-1 relative">
-                              <button v-on:click="showSort" type="button" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                              <button v-on:click="showSort" type="button" class="relative w-full text-black bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                                          <span class="ml-3 block px-5" >{{option}}</span>
                        
                                 <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -36,10 +36,10 @@
                               </button>
                           
           
-                              <ul v-show="canShowSort"  class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                              <ul v-show="canShowSort"  class="absolute text-black z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
                              
-                                <li v-on:click="selectSort(state)" v-for="(state,key)  in options" class="text-gray-900 cursor-default  relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
-                                  <span class="font-normal ml-1 block px-5" v-bind:value="state">{{state}}</span>
+                                <li v-on:click="selectSort(state)" v-for="(state,key)  in options" class=" cursor-default text-black relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+                                  <span class="font-normal text-black ml-1 block px-5" v-bind:value="state">{{state}}</span>
                               
                                   
                                 </li>
@@ -51,7 +51,7 @@
                        <div>
                            
                         <div class="mt-6 ml-8 relative">
-                            <button v-on:click="showDirection" type="button" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                            <button v-on:click="showDirection" type="button" class="relative w-full bg-white text-black border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                                        <span class="ml-3 block px-5" >{{direction}}</span>
                      
                               <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -63,9 +63,9 @@
                             </button>
                         
         
-                            <ul v-show="canShowDirectionSort"  class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                            <ul v-show="canShowDirectionSort"  class="text-black absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
                            
-                              <li v-on:click="selectDirection(direction)" v-for="(direction,key)  in directions" class="text-gray-900 cursor-default  relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+                              <li v-on:click="selectDirection(direction)" v-for="(direction,key)  in directions" class=" cursor-default  relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
                                 <span class="font-normal ml-1 block px-5" v-bind:value="direction">{{direction}}</span>
                             
                                 
@@ -79,7 +79,7 @@
                       </div>
                       <div class="mt-6">
               
-                        <input type="text" placeholder="Search" v-model="search" class="w-full bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <input type="text" placeholder="Search" v-model="search" class="w-full bg-slate-900 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                      
                       </div>
                       <div class="">
@@ -99,10 +99,10 @@
                       <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
                       <div class="p-6">
                       
-                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
-                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
-                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
-                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
+                        <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.title"></h1>
+                        <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.location"></h1>
+                        <h1 class="title-font text-lg font-medium  mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+                        <h1 class="title-font text-lg font-medium  mb-3" >Number of spaces:{{lesson.space}}</h1>
                         
                         <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
                   <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Add to cart</button>
@@ -121,10 +121,10 @@
             <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
             <div class="p-6">
             
-              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
-              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
-              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
-              <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
+              <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.title"></h1>
+              <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.location"></h1>
+              <h1 class="title-font text-lg font-medium  mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+              <h1 class="title-font text-lg font-medium  mb-3" >Number of spaces:{{lesson.space}}</h1>
               
               <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded "> <span class="fa fa-plus mt-1 mr-2"></span> Add to cart</button>
         <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus" ><span class="fa fa-plus mt-1 mr-2"></span> Add to cart</button>
@@ -158,9 +158,9 @@
         <img class="lg:h-48 md:h-36 w-full object-cover object-top hover:object-bottom duration-500 transition-all " v-bind:src="lesson.image" alt="blog">
         <div class="p-6">
         
-          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.title"></h1>
-          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" v-text="lesson.location"></h1>
-          <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
+          <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.title"></h1>
+          <h1 class="title-font text-lg font-medium  mb-3" v-text="lesson.location"></h1>
+          <h1 class="title-font text-lg font-medium  mb-3" >Price:{{lesson.price | formatPrice}}</h1>
           <button v-on:click="removeFromCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded ">Remove</button>
 
         </div>
