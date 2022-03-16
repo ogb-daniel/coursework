@@ -83,8 +83,8 @@
                      
                       </div>
                       <div class="">
-                        <button v-on:click="showCart" v-if="canShowCart" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-shopping-cart">Cart</button>
-                        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-shopping-cart" >Cart</button>
+                        <button v-on:click="showCart" v-if="canShowCart" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded "> <span class="fa fa-shopping-cart mt-1 mr-2"></span>Cart</button>
+                        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded " ><span class="fa fa-shopping-cart mt-1 mr-2"></span>Cart</button>
                     
                             
                       </div>
@@ -121,8 +121,8 @@
               <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Price:{{lesson.price | formatPrice}}</h1>
               <h1 class="title-font text-lg font-medium text-gray-900 mb-3" >Number of spaces:{{lesson.space}}</h1>
               
-              <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus">Add to cart</button>
-        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus" >Add to cart</button>
+              <button v-on:click="addToCart(lesson)" v-if="canAddToCart(lesson)" class="flex mt-6 text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded "> <span class="fa fa-plus mt-1 mr-2"></span> Add to cart</button>
+        <button v-else disabled  class="flex mt-6 text-white bg-black opacity-25 border-0 py-2 px-6 focus:outline-none hover:bg-black rounded fa fa-plus" ><span class="fa fa-plus mt-1 mr-2"></span> Add to cart</button>
     
              
             </div>
