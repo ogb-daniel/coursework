@@ -188,11 +188,13 @@
     
 </body>
 <script>
+
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/serviceWorker.js")
       .then(res => console.log("service worker registered"))
       .catch(err => console.log("service worker not registered", err))
+   
 }
     var store = new Vue({
         el:'#app',
@@ -459,6 +461,7 @@ if (obj1.availableSpace < obj2.availableSpace){
                  order:this.cart
                })
              })
+             
              alert('Your order has been submitted.....redirecting you to the home screen!!')
              this.cart = []
              console.log(this.name,this.phone)

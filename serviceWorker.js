@@ -17,9 +17,9 @@ self.addEventListener("install", installEvent => {
     })
   )
 })
+
+
 self.addEventListener("fetch", fetchEvent => {
-
-
     fetchEvent.respondWith(
       caches.open(staticClub).then(function(cache) {
         return cache.match(fetchEvent.request).then(function(response) {
@@ -32,3 +32,4 @@ self.addEventListener("fetch", fetchEvent => {
       })
     );
   })
+
