@@ -1,8 +1,8 @@
-// const staticClub = "school-club-v1"
-// // const lessons =  fetch('https://coursewok.herokuapp.com/').then((response)=>
-// // response.json()).then((lessons)=>{
-// //   return lessons
-// // })
+const staticClub = "school-club-v1"
+// const lessons =  fetch('https://coursewok.herokuapp.com/').then((response)=>
+// response.json()).then((lessons)=>{
+//   return lessons
+// })
 // const assets = [
 //   "/",
 //   "/index.html",
