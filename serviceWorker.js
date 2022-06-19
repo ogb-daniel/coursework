@@ -35,12 +35,32 @@ self.addEventListener("install", installEvent => {
 self.addEventListener("fetch", fetchEvent => {
     fetchEvent.respondWith(
       caches.match(fetchEvent.request).then(res => {
-      return res | fetch(e.request).then((response)=>{
+      return res | fetch(fetchEvent.request).then((response)=>{
         return caches.open(staticClub).then((cache)=>{
-          cache.put(e.request,response.clone())
+          cache.put(fetchEvent.request,response.clone())
           return response
         })
       })
       })
     )
+
+    // fetchEvent.respondWith((async ()=>{
+    //   const cachedRes = await caches.match(fetchEvent.request);
+    //   if(cachedRes){
+    //     return cachedRes
+    //   } 
+
+    //   const response = await fetch(fetchEvent.request)
+
+    //   // if (!response || response.status !== 200 || response.type !== 'basic') {
+    //   //   return response;
+    //   // }
+    //   if (ENABLE_DYNAMIC_CACHING) {
+    //     const responseToCache = response.clone();
+    //     const cache = await caches.open(staticClub)
+    //     await cache.put(event.request, response.clone());
+    //   }
+    
+    //   return response;
+    // }))
   })
